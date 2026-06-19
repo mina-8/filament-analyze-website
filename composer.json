@@ -1,5 +1,5 @@
 {
-    "name": "mina/analyze-website",
+    "name": "minabeter/analyze-website",
     "description": "Website analytics package for Laravel and Filament",
     "type": "library",
     "license": "MIT",
