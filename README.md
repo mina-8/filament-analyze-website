@@ -12,7 +12,9 @@ You can install the package via composer:
 composer require minabeter/analyze-website
 ```
 
+```bash
 run php artisan migrate
+```
 
 Publish the config file with:
 
