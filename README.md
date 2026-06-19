@@ -9,7 +9,7 @@ This package helps in tracking and analyzing website visits. It records informat
 You can install the package via composer:
 
 ```bash
-composer require mina/analyze-website
+composer require minabeter/analyze-website
 ```
 
 Publish the config file with:
