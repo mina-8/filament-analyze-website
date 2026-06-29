@@ -10,7 +10,12 @@ class VisitsChartWidget extends ChartWidget
 {
 
     protected  ?string $pollingInterval = '60s';
-    protected  ?string $heading = 'Visits Last 7 Days';
+    // protected  ?string $heading = 'Visits Last 7 Days';
+        public function getHeading(): ?string
+    {
+        return __('analyze-website::analyze-website.chart.heading');
+    }
+
     protected int | string | array $columnSpan = 'full';
     protected function getData(): array
     {

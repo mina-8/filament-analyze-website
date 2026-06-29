@@ -11,7 +11,12 @@ class TopReferrersWidget extends TableWidget
 {
 
     protected  ?string $pollingInterval = '60s';
-    protected static ?string $heading = 'Top Referrers';
+    // protected static ?string $heading = 'Top Referrers';
+
+    public function getHeading(): ?string
+{
+    return __('analyze-website::analyze-website.top_referrers.heading');
+}
 
     protected int | string | array $columnSpan = 'full';
     public function table(Table $table): Table
@@ -21,9 +26,11 @@ class TopReferrersWidget extends TableWidget
                 Analytics::topReferrers()
             ))
             ->columns([
-                \Filament\Tables\Columns\TextColumn::make('referer'),
+                \Filament\Tables\Columns\TextColumn::make('referer')
+                ->label(__('analyze-website::analyze-website.top_referrers.referer')),
 
-                \Filament\Tables\Columns\TextColumn::make('total'),
+                \Filament\Tables\Columns\TextColumn::make('total')
+                ->label(__('analyze-website::analyze-website.top_referrers.total')),
             ])
             ;
     }

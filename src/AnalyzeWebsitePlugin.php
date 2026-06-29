@@ -5,6 +5,7 @@ namespace Mina\AnalyzeWebsite;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Mina\AnalyzeWebsite\Filament\Pages\Analytics;
+use Mina\AnalyzeWebsite\Filament\Pages\FilterAnalyze;
 use Mina\AnalyzeWebsite\Filament\Widgets\TopPagesWidget;
 use Mina\AnalyzeWebsite\Filament\Widgets\TopReferrersWidget;
 use Mina\AnalyzeWebsite\Filament\Widgets\VisitorsStatsWidget;
@@ -26,6 +27,7 @@ class AnalyzeWebsitePlugin implements Plugin
         $panel
             ->pages([
                 Analytics::class,
+                FilterAnalyze::class
             ])
             ;
 

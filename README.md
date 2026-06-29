@@ -80,6 +80,32 @@ To set up the package correctly, please follow these steps:
 
     This will add the analytics page to your Filament admin panel, where you can view the collected data.
 
+    ## Publish Assets
+
+    Publish the configuration file:
+
+    ```bash
+    php artisan vendor:publish --tag=analyze-config
+    ```
+
+    Publish the translation files (optional):
+
+    ```bash
+    php artisan vendor:publish --tag=analyze-website-translations
+    ```
+
+    Or publish everything at once:
+
+    ```bash
+    php artisan vendor:publish --provider="Mina\AnalyzeWebsite\AnalyzeWebsiteServiceProvider"
+    ```
+
+    This will create:
+
+    - `config/analyze-website.php`
+    - `lang/vendor/analyze-website/`
+
+
     ![Analytics Dashboard](images/analytics-dashboard.png)
     ![Top Pages and Referrers](images/top-pages-and-referrers.png)
 

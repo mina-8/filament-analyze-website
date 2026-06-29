@@ -9,6 +9,7 @@ use Livewire\Livewire;
 use Mina\AnalyzeWebsite\Drivers\DatabaseDriver;
 use Mina\AnalyzeWebsite\Drivers\QueueDriver;
 use Mina\AnalyzeWebsite\Drivers\RedisDriver;
+use Mina\AnalyzeWebsite\Filament\Widgets\ReportVisitsChartWidget;
 use Mina\AnalyzeWebsite\Filament\Widgets\TopPagesWidget;
 use Mina\AnalyzeWebsite\Filament\Widgets\TopReferrersWidget;
 use Mina\AnalyzeWebsite\Filament\Widgets\VisitorsStatsWidget;
@@ -47,6 +48,7 @@ class AnalyzeWebsiteServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'analyze-website');
 
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'analyze-website');
 
         Livewire::component(
             'mina-analyze-website-visitors-stats-widget',
@@ -68,9 +70,19 @@ class AnalyzeWebsiteServiceProvider extends ServiceProvider
             TopReferrersWidget::class
         );
 
+        liveWire::component(
+            'mina-analyze-website-report-visits-chart-widget',
+            ReportVisitsChartWidget::class
+        );
+
         $this->publishes([
             __DIR__ . '/../config/analyze-website.php' => config_path('analyze-website.php'),
 
         ], 'analyze-config');
+
+        $this->publishes([
+            __DIR__ . '/../resources/lang' => lang_path('vendor/analyze-website'),
+        ], 'analyze-website-translations');
+
     }
 }

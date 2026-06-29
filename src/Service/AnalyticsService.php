@@ -15,7 +15,7 @@ class AnalyticsService
         return Cache::remember(
             'analytics.today_visits',
             $this->cacheSeconds,
-            fn () => PageVisit::whereDate('visited_at', today())->count()
+            fn() => PageVisit::whereDate('visited_at', today())->count()
         );
     }
 
@@ -24,7 +24,7 @@ class AnalyticsService
         return Cache::remember(
             'analytics.unique_visitors',
             $this->cacheSeconds,
-            fn () => PageVisit::distinct('ip')->count('ip')
+            fn() => PageVisit::distinct('ip')->count('ip')
         );
     }
 
@@ -33,7 +33,7 @@ class AnalyticsService
         return Cache::remember(
             'analytics.total_visitors',
             $this->cacheSeconds,
-            fn () => PageVisit::count()
+            fn() => PageVisit::count()
         );
     }
 
@@ -42,7 +42,7 @@ class AnalyticsService
         return Cache::remember(
             "analytics.top_pages.{$limit}",
             $this->cacheSeconds,
-            fn () => PageVisit::select('path', DB::raw('COUNT(*) as total'))
+            fn() => PageVisit::select('path', DB::raw('COUNT(*) as total'))
                 ->groupBy('path')
                 ->orderByDesc('total')
                 ->limit($limit)
@@ -56,7 +56,7 @@ class AnalyticsService
         return Cache::remember(
             "analytics.top_referrers.{$limit}",
             $this->cacheSeconds,
-            fn () => PageVisit::select('referer', DB::raw('COUNT(*) as total'))
+            fn() => PageVisit::select('referer', DB::raw('COUNT(*) as total'))
                 ->whereNotNull('referer')
                 ->groupBy('referer')
                 ->orderByDesc('total')
@@ -71,16 +71,21 @@ class AnalyticsService
         return Cache::remember(
             "analytics.visits_by_date.{$date}",
             $this->cacheSeconds,
-            fn () => PageVisit::whereDate('visited_at', $date)->count()
+            fn() => PageVisit::whereDate('visited_at', $date)->count()
         );
     }
 
-    public function visitsBetween($from, $to): int
-    {
-        return Cache::remember(
-            "analytics.visits_between.{$from}.{$to}",
-            $this->cacheSeconds,
-            fn () => PageVisit::whereBetween('visited_at', [$from, $to])->count()
-        );
+
+    public function visitsBetweenGroupedByDate(
+        string $from,
+        string $to,
+    ): array {
+        return PageVisit::query()
+            ->selectRaw('DATE(visited_at) as date, COUNT(*) as total')
+            ->whereBetween('visited_at', [$from, $to])
+            ->groupByRaw('DATE(visited_at)')
+            ->orderBy('date')
+            ->pluck('total', 'date')
+            ->toArray();
     }
 }

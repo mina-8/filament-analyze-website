@@ -12,7 +12,11 @@ class TopPagesWidget extends TableWidget
 {
 
     protected  ?string $pollingInterval = '60s';
-    protected static ?string $heading = 'Top Pages';
+    // protected static ?string $heading = 'Top Pages';
+    public function getHeading(): ?string
+{
+    return __('analyze-website::analyze-website.top_pages.heading');
+}
 
     protected int | string | array $columnSpan = 'full';
     public function table(Table $table): Table
@@ -24,9 +28,11 @@ class TopPagesWidget extends TableWidget
         return $table
             ->records(fn() => $rows)
             ->columns([
-                \Filament\Tables\Columns\TextColumn::make('path'),
+                \Filament\Tables\Columns\TextColumn::make('path')
+                 ->label(__('analyze-website::analyze-website.top_pages.path')),
 
-                \Filament\Tables\Columns\TextColumn::make('total'),
+                \Filament\Tables\Columns\TextColumn::make('total')
+                 ->label(__('analyze-website::analyze-website.top_pages.total')),
             ]);
     }
 }

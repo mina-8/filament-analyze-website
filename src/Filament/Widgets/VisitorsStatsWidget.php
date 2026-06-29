@@ -9,26 +9,28 @@ use Mina\AnalyzeWebsite\Facade\Analytics;
 
 class VisitorsStatsWidget extends StatsOverviewWidget
 {
-    
+
     protected  ?string $pollingInterval = '60s';
     protected function getStats(): array
     {
+        
         return [
 
-            Stat::make('Today Visits', Analytics::todayVisits())
-                ->description('Visits in the current day')
+            Stat::make(
+                __('analyze-website::analyze-website.widget.today_visitors'), Analytics::todayVisits())
+                ->description(__('analyze-website::analyze-website.widget.today_visitors_description'))
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success')
                 ->chart($this->getTodayVisitsChart()),
 
-            Stat::make('Unique Visitors', Analytics::uniqueVisitors())
-                ->description('All unique visitors')
+            Stat::make(__('analyze-website::analyze-website.widget.unique_visitors'), Analytics::uniqueVisitors())
+                ->description(__('analyze-website::analyze-website.widget.unique_visitors_description'))
                 ->descriptionIcon('heroicon-m-users')
                 ->color('info')
                 ->chart($this->getUniqueVisitorsChart()),
 
-            Stat::make('Total Visits', Analytics::totalVisitors())
-                ->description('All time visits')
+            Stat::make(__('analyze-website::analyze-website.widget.total_visitors'), Analytics::totalVisitors())
+                ->description(__('analyze-website::analyze-website.widget.total_visitors_description'))
                 ->descriptionIcon('heroicon-m-globe-alt')
                 ->color('warning')
                 ->chart($this->getTotalVisitsChart()),
@@ -36,7 +38,7 @@ class VisitorsStatsWidget extends StatsOverviewWidget
     }
     private function getTodayVisitsChart(): array
     {
-        // مثال بسيط - استبدله بداتا حقيقية من analytics
+
         return [5, 10, 7, 12, 9, 15, 20];
     }
 
